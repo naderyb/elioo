@@ -1,26 +1,313 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: #eaf0e1;
+  --color-paper-deep: #d8e4cb;
+  --color-ink: #0e1a12;
+  --color-forest: #1f3a29;
+  --color-leaf: #4a7a45;
+  --color-sage: #9bb88a;
+  --color-gold: #b5d17f;
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-dmsans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-paper);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-leaf);
+  color: var(--color-paper);
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Voice equalizer bars */
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.2);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.eq-bar {
+  animation: eq 1.1s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .eq-bar {
+    animation: none;
+    transform: scaleY(0.5);
+  }
+}
+
+/* ---------- Camera lens ---------- */
+.lens {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+.lens-barrel {
+  -webkit-mask: radial-gradient(
+    circle closest-side,
+    transparent 39.6%,
+    #000 40%
+  );
+  mask: radial-gradient(circle closest-side, transparent 39.6%, #000 40%);
+  background:
+    radial-gradient(circle, transparent 0 62%, rgba(0, 0, 0, 0.55) 100%),
+    conic-gradient(
+      from 20deg,
+      #101c14,
+      #3d5a45,
+      #121f17,
+      #55735b,
+      #0f1a13,
+      #3d5a45,
+      #101c14
+    );
+  box-shadow:
+    0 0 0 2px #2a4331,
+    0 50px 120px rgba(0, 0, 0, 0.65),
+    inset 0 0 0 3px rgba(155, 184, 138, 0.28),
+    inset 0 -24px 60px rgba(0, 0, 0, 0.6);
+}
+.lens-knurl {
+  position: absolute;
+  inset: 5%;
+  border-radius: 50%;
+  background: repeating-conic-gradient(#0b140e 0 1.1deg, #33513c 1.1deg 2.2deg);
+  -webkit-mask: radial-gradient(
+    circle closest-side,
+    transparent 82%,
+    #000 82.6%
+  );
+  mask: radial-gradient(circle closest-side, transparent 82%, #000 82.6%);
+  box-shadow: 0 0 0 1px rgba(155, 184, 138, 0.2);
+}
+.lens-scale {
+  position: absolute;
+  inset: 19%;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    rgba(181, 209, 127, 0.75) 0 0.45deg,
+    transparent 0.45deg 4deg
+  );
+  -webkit-mask: radial-gradient(
+    circle closest-side,
+    transparent 90%,
+    #000 90.6%
+  );
+  mask: radial-gradient(circle closest-side, transparent 90%, #000 90.6%);
+}
+.lens-engrave {
+  position: absolute;
+  inset: 11%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    transparent 0 83%,
+    rgba(10, 20, 14, 0.9) 84% 100%
+  );
+  box-shadow: inset 0 0 0 1px rgba(155, 184, 138, 0.25);
+}
+.lens-engrave svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.lens-inner {
+  position: absolute;
+  inset: 25%;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(
+    circle closest-side,
+    transparent 79.5%,
+    #000 80%
+  );
+  mask: radial-gradient(circle closest-side, transparent 79.5%, #000 80%);
+  background: conic-gradient(
+    from 200deg,
+    #050a07,
+    #2c4535,
+    #050a07,
+    #3a5642,
+    #050a07
+  );
+  box-shadow:
+    0 0 0 2px #0b140e,
+    inset 0 0 30px rgba(0, 0, 0, 0.9);
+}
+.lens-iris {
+  position: absolute;
+  inset: 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0a120d, #1c3024 80%), #0a120d;
+  overflow: hidden;
+}
+.lens-iris::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(
+    rgba(155, 184, 138, 0.35) 0 0.5deg,
+    transparent 0.5deg 40deg
+  );
+}
+.lens-glass {
+  position: absolute;
+  inset: 30%;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 31% 27%,
+      rgba(225, 255, 205, 0.6),
+      transparent 13%
+    ),
+    radial-gradient(
+      circle at 70% 76%,
+      rgba(181, 209, 127, 0.38),
+      transparent 17%
+    ),
+    repeating-radial-gradient(
+      circle,
+      transparent 0 9%,
+      rgba(155, 184, 138, 0.16) 9.4% 10%
+    ),
+    radial-gradient(
+      circle,
+      rgba(30, 70, 50, 0.45) 0 48%,
+      rgba(110, 200, 150, 0.3) 62%,
+      rgba(70, 150, 160, 0.22) 74%,
+      rgba(5, 12, 8, 0.92) 100%
+    ),
+    radial-gradient(circle, #14281c, #050b07 70%);
+}
+
+/* ---------- Turntable ---------- */
+.tt {
+  position: relative;
+  aspect-ratio: 6/5;
+  width: 100%;
+  border-radius: 2rem;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0 1px,
+      transparent 1px 3px
+    ),
+    linear-gradient(135deg, #2f5039, #1a3024 60%, #12231a);
+  box-shadow:
+    0 50px 90px rgba(14, 26, 18, 0.45),
+    0 0 0 1px rgba(155, 184, 138, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -10px 30px rgba(0, 0, 0, 0.35);
+}
+.tt-platter {
+  position: absolute;
+  left: 6.667%;
+  top: 12%;
+  width: 63.333%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 10deg,
+    #8aa387,
+    #2d4636,
+    #a7bfa0,
+    #2d4636,
+    #8aa387
+  );
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 3px rgba(0, 0, 0, 0.35);
+}
+.tt-strobe {
+  position: absolute;
+  inset: 2%;
+  border-radius: 50%;
+  background: repeating-conic-gradient(#0e1a12 0 2.4deg, #9bb88a 2.4deg 4.8deg);
+  -webkit-mask: radial-gradient(
+    circle closest-side,
+    transparent 93%,
+    #000 93.6%
+  );
+  mask: radial-gradient(circle closest-side, transparent 93%, #000 93.6%);
+}
+.tt-record {
+  position: absolute;
+  left: 9.167%;
+  top: 15%;
+  width: 58.333%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle closest-side,
+    #0a130d 0 0.5%,
+    #16281d 0.5% 1.1%
+  );
+  box-shadow:
+    0 0 0 1px rgba(155, 184, 138, 0.3),
+    0 6px 20px rgba(0, 0, 0, 0.6);
+}
+.tt-record svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.tt-sheen {
+  position: absolute;
+  left: 9.167%;
+  top: 15%;
+  width: 58.333%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 35deg,
+    transparent 0 16%,
+    rgba(255, 255, 255, 0.2) 22%,
+    transparent 29% 64%,
+    rgba(255, 255, 255, 0.12) 71%,
+    transparent 78%
+  );
+}
+.tt-spindle {
+  position: absolute;
+  left: 38.333%;
+  top: 50%;
+  width: 2.2%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff, #a7bfa0 40%, #33513c);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+.tt-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
