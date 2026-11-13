@@ -291,7 +291,7 @@ export default function Films() {
           </div>
 
           <div className="absolute inset-x-[7vw] bottom-[9vh] flex flex-col items-start gap-5 md:flex-row md:items-end md:justify-between">
-            <div className="min-h-24 md:min-h-32.5">
+            <div className="min-h-24 md:min-h-[8.125rem]">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={film.title}
