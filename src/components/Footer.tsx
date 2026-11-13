@@ -1,13 +1,13 @@
 "use client";
 
-export default function Footer() {
+export default function Footer({ currentYear }: { currentYear: number }) {
   return (
     <footer className="bg-forest px-6 py-10 text-paper md:px-16">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 text-xs tracking-[0.25em] uppercase md:flex-row">
         <p className="font-display text-2xl tracking-normal normal-case italic">
           elioo
         </p>
-        <p className="text-sage">© {new Date().getFullYear()} Bilal Ait Sai</p>
+        <p className="text-sage">© {currentYear} Bilal Ait Sai</p>
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

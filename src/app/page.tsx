@@ -5,6 +5,8 @@ import Films from "@/components/Films";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
+const CURRENT_YEAR = 2026;
+
 export default function Home() {
   return (
     <main>
@@ -13,8 +15,7 @@ export default function Home() {
       <Music />
       <Films />
       <Contact />
-      <Footer />
-      {/* <div className="h-screen" /> */}
+      <Footer currentYear={CURRENT_YEAR} />
     </main>
   );
 }
